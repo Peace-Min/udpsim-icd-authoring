@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "name": "Synthetic table oracle",
+  "endian": "little",
+  "evidence": [
+    {
+      "source": "multi-table.pdf",
+      "locator": "physical pages 1-4"
+    }
+  ],
+  "unresolved": [],
+  "types": [],
+  "enums": [
+    {
+      "name": "Toggle",
+      "items": [
+        {
+          "name": "Off",
+          "value": 0
+        },
+        {
+          "name": "On",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "header": [
+    {
+      "name": "Id",
+      "type": "uint8",
+      "role": "id"
+    },
+    {
+      "name": "Size",
+      "type": "uint8",
+      "role": "length"
+    },
+    {
+      "name": "Seq",
+      "type": "uint8",
+      "role": "seq",
+      "max": 255,
+      "scope": "link",
+      "response": "count"
+    }
+  ],
+  "messages": [
+    {
+      "direction": "receive",
+      "code": "SENSOR_STATUS",
+      "id": 145,
+      "name": "Sensor status",
+      "length": 6,
+      "fields": [
+        {
+          "name": "Value",
+          "type": "uint16"
+        },
+        {
+          "name": "State",
+          "type": "uint8",
+          "enum": "Toggle"
+        }
+      ]
+    },
+    {
+      "direction": "send",
+      "code": "SET_LIMITS",
+      "id": 146,
+      "name": "Set limits",
+      "length": 7,
+      "fields": [
+        {
+          "name": "Limits",
+          "type": "int16",
+          "count": 2
+        }
+      ]
+    }
+  ]
+}

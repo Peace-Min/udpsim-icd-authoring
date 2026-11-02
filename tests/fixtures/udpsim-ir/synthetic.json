@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "Synthetic ICD & array example",
+  "endian": "little",
+  "evidence": [{"source": "synthetic-spec.txt", "locator": "Synthetic fixture, sections 1-3; simulator is controller"}],
+  "unresolved": [],
+  "enums": [{"name": "ReadyState", "items": [{"name": "Off", "value": 0}, {"name": "On", "value": 1}]}],
+  "types": [{"name": "Channel", "fields": [
+    {"name": "Reading", "type": "int16"},
+    {"name": "Flags", "type": "uint8", "bits": [
+      {"name": "Ready", "from": 0, "to": 0, "enum": "ReadyState"},
+      {"name": "Mode", "from": 1, "to": 2}
+    ]}
+  ]}],
+  "header": [
+    {"name": "Id", "type": "uint16", "role": "id"},
+    {"name": "Length", "type": "uint16", "role": "length"},
+    {"name": "Sequence", "type": "uint16", "role": "seq", "max": 999, "scope": "message", "response": "echo"},
+    {"name": "Source", "type": "uint8"}
+  ],
+  "messages": [
+    {"direction": "send", "code": "SET_CHANNELS", "id": 28929, "name": "Set synthetic channels", "length": 13,
+     "evidence": [{"source": "synthetic-spec.txt", "locator": "section 2"}],
+     "fields": [{"name": "Channels", "type": "Channel", "count": 2}]},
+    {"direction": "receive", "code": "REPORT_CHANNELS", "id": 29185, "name": "Report synthetic channels", "length": 13,
+     "fields": [{"name": "Channels", "type": "Channel", "count": 2}]}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "source": {
+    "input": "ping.h", "requires_stop": false,
+    "facts": {"endian":"little", "header":[{"name":"Id","type":"uint8","role":"id"},{"name":"Length","type":"uint8","role":"length"}], "messages":[{"direction":"send","code":"PING","id":17,"length":3,"fields":[{"name":"Value","type":"uint8"}]}]}
+  },
+  "document-excerpt": {
+    "input": "document-excerpt.txt", "requires_stop": false,
+    "facts": {"endian":"little", "header":[{"name":"Id","type":"uint8","role":"id"},{"name":"Length","type":"uint8","role":"length"}], "messages":[{"direction":"send","code":"PING","id":17,"length":3,"fields":[{"name":"Value","type":"uint8"}]}]}
+  },
+  "ambiguity": {"input":"ambiguous.h", "requires_stop":true, "missing_fact":"endian"}
+}

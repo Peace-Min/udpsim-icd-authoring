@@ -1,0 +1,7 @@
+Synthetic document excerpt, not a PDF extraction test.
+Physical page 2: Common packet rules.
+The simulator is the controller. Wire byte order is little endian.
+The common header is Id:uint8 (role=id), Length:uint8 (role=length, total bytes).
+Physical page 5: Message inventory and details.
+PING is sent by the controller to the device. ID=17 decimal; total length=3 bytes.
+Its body has exactly one field, Value:uint8. No padding or sequence field.

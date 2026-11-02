@@ -1,0 +1,16 @@
+out/
+tmp/
+icd-work/
+__pycache__/
+*.pyc
+*.log
+*.pcap
+*.pcapng
+*.exe
+*.dll
+*.pdb
+bin/
+obj/
+.vs/
+.env
+.env.*

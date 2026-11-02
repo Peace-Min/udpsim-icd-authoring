@@ -1,0 +1,18 @@
+{
+  "name": "udpsim-icd-authoring",
+  "owner": { "name": "Peace-Min" },
+  "plugins": [
+    {
+      "name": "udpsim-icd-authoring",
+      "source": "./",
+      "version": "0.1.0",
+      "description": "Traceable UdpSim ICD authoring with deterministic XML/Core validation and optional raw UDP payload inspection.",
+      "author": { "name": "Peace-Min" },
+      "repository": "https://github.com/Peace-Min/udpsim-icd-authoring",
+      "license": "MIT",
+      "category": "development",
+      "tags": ["udpsim", "icd", "xml", "offline"]
+    }
+  ],
+  "metadata": { "description": "Standalone UdpSim ICD authoring Skill and validation tools." }
+}

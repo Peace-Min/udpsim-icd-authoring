@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "source-nested",
+      "input": "scan-report.h",
+      "kind": "positive",
+      "request": "Define only SCAN_REPORT from the source. Simulator is the controller, which receives the physical scanner report. Preserve the specified canonical identifiers and nested fixed-array paths.",
+      "expected": {
+        "schema_version": 1,
+        "endian": "big",
+        "unresolved": [],
+        "enums": [
+          {
+            "name": "Toggle",
+            "items": [
+              {
+                "name": "Off",
+                "value": 0
+              },
+              {
+                "name": "On",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "types": [
+          {
+            "name": "Slot",
+            "fields": [
+              {
+                "name": "Bias",
+                "type": "int16"
+              },
+              {
+                "name": "Count",
+                "type": "uint8"
+              },
+              {
+                "name": "Flags",
+                "type": "uint8",
+                "bits": [
+                  {
+                    "name": "Active",
+                    "from": 0,
+                    "to": 0,
+                    "enum": "Toggle"
+                  },
+                  {
+                    "name": "Quality",
+                    "from": 1,
+                    "to": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Rack",
+            "fields": [
+              {
+                "name": "Slots",
+                "type": "Slot",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "header": [
+          {
+            "name": "FrameId",
+            "type": "uint16",
+            "role": "id"
+          },
+          {
+            "name": "FrameSize",
+            "type": "uint16",
+            "role": "length"
+          },
+          {
+            "name": "Station",
+            "type": "uint8"
+          }
+        ],
+        "messages": [
+          {
+            "direction": "receive",
+            "code": "SCAN_REPORT",
+            "id": 18993,
+            "name": "Synthetic scan report",
+            "length": 17,
+            "fields": [
+              {
+                "name": "Rack",
+                "type": "Rack"
+              }
+            ]
+          }
+        ]
+      },
+      "packet_message": "SCAN_REPORT",
+      "payload_hex": "4A 31 00 11 05 FE D4 07 05 04 D2 00 02 FF FF FF 07",
+      "expected_values": {
+        "Station": "5",
+        "Rack.Slots[0].Bias": "-300",
+        "Rack.Slots[0].Count": "7",
+        "Rack.Slots[0].Flags.Active": "On",
+        "Rack.Slots[0].Flags.Quality": "2",
+        "Rack.Slots[1].Bias": "1234",
+        "Rack.Slots[1].Count": "0",
+        "Rack.Slots[1].Flags.Active": "Off",
+        "Rack.Slots[1].Flags.Quality": "1",
+        "Rack.Slots[2].Bias": "-1",
+        "Rack.Slots[2].Count": "255",
+        "Rack.Slots[2].Flags.Active": "On",
+        "Rack.Slots[2].Flags.Quality": "3"
+      },
+      "optional_source_types": [
+        {
+          "name": "ScanHeader",
+          "fields": [
+            {
+              "name": "FrameId",
+              "type": "uint16"
+            },
+            {
+              "name": "FrameSize",
+              "type": "uint16"
+            },
+            {
+              "name": "Station",
+              "type": "uint8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "document-dependency",
+      "input": "document.pdf",
+      "kind": "positive",
+      "request": "Define only SET_WINDOW listed on physical PDF pages 2-3. Simulator is the controller. Follow referenced shared definitions on physical page 1.",
+      "expected": {
+        "schema_version": 1,
+        "endian": "little",
+        "unresolved": [],
+        "enums": [
+          {
+            "name": "RunState",
+            "items": [
+              {
+                "name": "Stopped",
+                "value": 0
+              },
+              {
+                "name": "Running",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "types": [],
+        "header": [
+          {
+            "name": "Msg",
+            "type": "uint8",
+            "role": "id"
+          },
+          {
+            "name": "Size",
+            "type": "uint8",
+            "role": "length"
+          },
+          {
+            "name": "Counter",
+            "type": "uint8",
+            "role": "seq",
+            "max": 15,
+            "scope": "message",
+            "response": "count"
+          }
+        ],
+        "messages": [
+          {
+            "direction": "send",
+            "code": "SET_WINDOW",
+            "id": 103,
+            "name": "Synthetic set window",
+            "length": 8,
+            "fields": [
+              {
+                "name": "Limits",
+                "type": "uint16",
+                "count": 2
+              },
+              {
+                "name": "Enabled",
+                "type": "uint8",
+                "enum": "RunState"
+              }
+            ]
+          }
+        ]
+      },
+      "packet_message": "SET_WINDOW",
+      "payload_hex": "67 08 0B 34 12 CD AB 01",
+      "expected_seq": 11,
+      "expected_values": {
+        "Limits[0]": "4660",
+        "Limits[1]": "43981",
+        "Enabled": "Running"
+      },
+      "requested_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "missing-endian",
+      "input": "missing-endian.h",
+      "kind": "ambiguous",
+      "request": "Define VOLTAGE_SAMPLE for the controller simulator. Stop and name mandatory source facts that are unavailable; do not guess them.",
+      "expected": {
+        "schema_version": 1,
+        "enums": [],
+        "types": [],
+        "header": [
+          {
+            "name": "FrameId",
+            "type": "uint16",
+            "role": "id"
+          },
+          {
+            "name": "FrameSize",
+            "type": "uint16",
+            "role": "length"
+          }
+        ],
+        "messages": [
+          {
+            "direction": "receive",
+            "code": "VOLTAGE_SAMPLE",
+            "id": 15217,
+            "name": "Synthetic voltage sample",
+            "length": 6,
+            "fields": [
+              {
+                "name": "Voltage",
+                "type": "uint16"
+              }
+            ]
+          }
+        ]
+      },
+      "missing_facts": [
+        "endian"
+      ]
+    },
+    {
+      "id": "repair-length",
+      "input": "scan-report.h",
+      "kind": "repair",
+      "request": "The supplied seed is intentionally invalid. Validate it, then repair only source-backed errors using scan-report.h. Do not change the validator or application.",
+      "expected": {
+        "schema_version": 1,
+        "endian": "big",
+        "unresolved": [],
+        "enums": [
+          {
+            "name": "Toggle",
+            "items": [
+              {
+                "name": "Off",
+                "value": 0
+              },
+              {
+                "name": "On",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "types": [
+          {
+            "name": "Slot",
+            "fields": [
+              {
+                "name": "Bias",
+                "type": "int16"
+              },
+              {
+                "name": "Count",
+                "type": "uint8"
+              },
+              {
+                "name": "Flags",
+                "type": "uint8",
+                "bits": [
+                  {
+                    "name": "Active",
+                    "from": 0,
+                    "to": 0,
+                    "enum": "Toggle"
+                  },
+                  {
+                    "name": "Quality",
+                    "from": 1,
+                    "to": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Rack",
+            "fields": [
+              {
+                "name": "Slots",
+                "type": "Slot",
+                "count": 3
+              }
+            ]
+          }
+        ],
+        "header": [
+          {
+            "name": "FrameId",
+            "type": "uint16",
+            "role": "id"
+          },
+          {
+            "name": "FrameSize",
+            "type": "uint16",
+            "role": "length"
+          },
+          {
+            "name": "Station",
+            "type": "uint8"
+          }
+        ],
+        "messages": [
+          {
+            "direction": "receive",
+            "code": "SCAN_REPORT",
+            "id": 18993,
+            "name": "Synthetic scan report",
+            "length": 17,
+            "fields": [
+              {
+                "name": "Rack",
+                "type": "Rack"
+              }
+            ]
+          }
+        ]
+      },
+      "packet_message": "SCAN_REPORT",
+      "payload_hex": "4A 31 00 11 05 FE D4 07 05 04 D2 00 02 FF FF FF 07",
+      "expected_values": {
+        "Station": "5",
+        "Rack.Slots[0].Bias": "-300",
+        "Rack.Slots[0].Count": "7",
+        "Rack.Slots[0].Flags.Active": "On",
+        "Rack.Slots[0].Flags.Quality": "2",
+        "Rack.Slots[1].Bias": "1234",
+        "Rack.Slots[1].Count": "0",
+        "Rack.Slots[1].Flags.Active": "Off",
+        "Rack.Slots[1].Flags.Quality": "1",
+        "Rack.Slots[2].Bias": "-1",
+        "Rack.Slots[2].Count": "255",
+        "Rack.Slots[2].Flags.Active": "On",
+        "Rack.Slots[2].Flags.Quality": "3"
+      },
+      "seed_input": "scan-report.bad-length.json",
+      "optional_source_types": [
+        {
+          "name": "ScanHeader",
+          "fields": [
+            {
+              "name": "FrameId",
+              "type": "uint16"
+            },
+            {
+              "name": "FrameSize",
+              "type": "uint16"
+            },
+            {
+              "name": "Station",
+              "type": "uint8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

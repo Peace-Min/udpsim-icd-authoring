@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "endian": "big",
+  "unresolved": [],
+  "enums": [
+    {
+      "name": "Toggle",
+      "items": [
+        {
+          "name": "Off",
+          "value": 0
+        },
+        {
+          "name": "On",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "Slot",
+      "fields": [
+        {
+          "name": "Bias",
+          "type": "int16"
+        },
+        {
+          "name": "Count",
+          "type": "uint8"
+        },
+        {
+          "name": "Flags",
+          "type": "uint8",
+          "bits": [
+            {
+              "name": "Active",
+              "from": 0,
+              "to": 0,
+              "enum": "Toggle"
+            },
+            {
+              "name": "Quality",
+              "from": 1,
+              "to": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rack",
+      "fields": [
+        {
+          "name": "Slots",
+          "type": "Slot",
+          "count": 3
+        }
+      ]
+    }
+  ],
+  "header": [
+    {
+      "name": "FrameId",
+      "type": "uint16",
+      "role": "id"
+    },
+    {
+      "name": "FrameSize",
+      "type": "uint16",
+      "role": "length"
+    },
+    {
+      "name": "Station",
+      "type": "uint8"
+    }
+  ],
+  "messages": [
+    {
+      "direction": "receive",
+      "code": "SCAN_REPORT",
+      "id": 18993,
+      "name": "Synthetic scan report",
+      "length": 16,
+      "fields": [
+        {
+          "name": "Rack",
+          "type": "Rack"
+        }
+      ]
+    }
+  ],
+  "name": "Synthetic scan seed",
+  "evidence": [
+    {
+      "source": "scan-report.h",
+      "locator": "header, Slot, Rack and SCAN_REPORT declarations; explicit serializer"
+    }
+  ]
+}

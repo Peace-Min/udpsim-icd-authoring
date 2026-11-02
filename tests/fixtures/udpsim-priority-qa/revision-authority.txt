@@ -1,0 +1,2 @@
+SYNTHETIC QA INPUT, not operational data.
+Little endian, controller receives SYNC, header Id:uint8(role=id), Size:uint8(role=length), body Tick:uint16, total=4. Document revision R1 gives ID 0x55; revision R2 gives ID 0x65. Neither revision is declared authoritative. Both documents are supplied as equal-status source inputs; do not choose by recency alone.

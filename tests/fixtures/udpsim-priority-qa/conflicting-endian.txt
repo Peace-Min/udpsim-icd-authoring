@@ -1,0 +1,8 @@
+SYNTHETIC QA INPUT, not operational data.
+ICD revision A says all uint16 fields use big endian. The matching serializer revision B uses write_le16. No source is designated authoritative; do not silently choose a revision. Both define code SAMPLE, ID=0x51, header Id:uint8(role=id), Size:uint8(role=length), body Value:uint16; total=4. Simulator receives.
+[ICD extract, revision A]
+Value is serialized most-significant byte first.
+[serializer.c, revision B]
+void serialize(unsigned char *dst, unsigned short value) {
+  dst[0] = 0x51; dst[1] = 4; dst[2] = value & 0xff; dst[3] = value >> 8;
+}

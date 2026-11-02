@@ -1,0 +1,30 @@
+SYNTHETIC WINDOW CONTROL SPECIFICATION, revision QA-WINDOW-20261030
+This is a text excerpt fixture, not evidence of actual PDF extraction or OCR.
+Task scope: define only the SET_WINDOW message in section 3. Follow its references.
+The simulator represents the controller. All multibyte wire integers are little endian.
+No automatic padding, scaling, checksum or trailing bytes are present.
+
+SECTION 1 - COMMON DEFINITIONS (outside requested message section)
+The common header is 3 bytes and applies to every message:
+  Msg: uint8, automatic role id.
+  Size: uint8, automatic role length, total bytes including this header.
+  Counter: uint8, automatic role seq, maximum 15, scope message, response count.
+The enum RunState has exactly Stopped=0 and Running=1.
+
+SECTION 2 - NAMING
+Identifiers in the field tables are canonical XML identifiers. Array indexes start at 0.
+Use RunState for the Enabled field. Header fields are not repeated in the body.
+
+SECTION 3 - REQUESTED MESSAGE
+Code: SET_WINDOW
+Name: Synthetic set window
+ID: 0x67
+Direction in device documentation: device receives from controller.
+Total wire length: 8 bytes. Common header: see section 1.
+Body, in exact wire order:
+  Limits: uint16, fixed count 2.
+  Enabled: uint8, enum RunState.
+No Types/Struct declarations are required for this flat body.
+
+SECTION 4 - SCOPE BOUNDARY
+Other device messages are outside this extraction request. Do not invent them.
