@@ -55,6 +55,7 @@ Codex/다른 에이전트에는 이 파일을 지정하거나, 해당 Skill 폴�
 
 ## 범위와 문서
 
+- [LLM · Agent · Tool 상호작용 시퀀스 다이어그램](docs/wiki/interaction-sequence.md)
 - [사용 절차와 예제](docs/wiki/udpsim-icd-authoring.md)
 - [QA 범위와 인수 상태](docs/wiki/udpsim-icd-qa.md)
 - [입력 12종·도구/체크포인트 QA](docs/wiki/udpsim-priority-qa.md)

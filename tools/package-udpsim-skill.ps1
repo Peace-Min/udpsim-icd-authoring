@@ -21,6 +21,7 @@ try {
         'skills/udpsim-icd-authoring',
         '.claude/skills/udpsim-icd-authoring',
         'docs/wiki/udpsim-icd-authoring.md',
+        'docs/wiki/interaction-sequence.md',
         'docs/wiki/udpsim-icd-qa.md',
         'docs/wiki/udpsim-cloud-qa.md',
         'docs/wiki/udpsim-free-models.md',
