@@ -2,6 +2,9 @@
 
 Source: Peace-Min/peace-skillbank commit fe485f2a113221a6ba574dfaa939ac7af6fad381.
 
+Verified locally: 193 Python checks, 25 Core/payload checks, eight scripted MCP/tool cases,
+manifest/Skill validation, and extracted package layout/Core/payload tests. No external models invoked.
+
 1. Copy only this Skill, its entrypoints, deterministic tools, synthetic fixtures and QA documentation.
    Preserve the runtime contract and copyright; exclude other skills, local runtimes and model I/O.
 2. Add one-plugin marketplace metadata, clone-time entrypoint and standalone installation instructions.

@@ -1,11 +1,12 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string]$UdpSimRoot,
-    [string]$OutputDirectory = (Join-Path $PSScriptRoot '../out/udpsim-transfer')
+    [string]$OutputDirectory
 )
 $ErrorActionPreference = 'Stop'
 try {
     $repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+    if (-not $OutputDirectory) { $OutputDirectory = Join-Path $repoRoot 'out/udpsim-transfer' }
     $simRoot = (Resolve-Path -LiteralPath $UdpSimRoot).Path
     $destination = [IO.Path]::GetFullPath($OutputDirectory)
     $bundle = Join-Path $destination ('udpsim-skill-' + [Guid]::NewGuid().ToString('N'))

@@ -26,4 +26,7 @@ during extraction. Internal Qwen/Claude Code acceptance remains NOT_RUN.
 - Additional synthetic stdio MCP/checkpoint suite: **8 tool cases passed**, including 4 payload positive/negative pairs.
 - Skill validator, standalone plugin/marketplace manifests and local document links passed.
 - Canonical SKILL.md and the four runtime implementation files match the upstream bytes exactly.
-- Transfer-package execution is checked separately before publication; it is not a new model-quality run.
+- Transfer package: format-2 manifest and SHA-256 for **162 files** verified. The extracted standalone
+  layout passed its four checks; relocated converter/Core and two payload positive/negative pairs passed.
+  A PowerShell 5.1 default-parameter path issue was corrected during this test.
+- No new model-quality run or internal Qwen/Claude Code acceptance is implied by extraction.
