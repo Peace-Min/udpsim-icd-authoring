@@ -1,0 +1,15 @@
+{
+  "name": "Synthetic three-kind scenario",
+  "values": {
+    "Channels[0].Reading": "-5",
+    "Channels[0].Flags.Ready": "On",
+    "Channels[0].Flags.Mode": "2",
+    "Channels[1].Reading": "0x0012",
+    "Channels[1].Flags.Ready": "Off",
+    "Channels[1].Flags.Mode": "1"
+  },
+  "period_ms": 1000,
+  "delay_ms": 25,
+  "manual_source": "7",
+  "condition": {"Channels[1].Flags.Ready": "On"}
+}

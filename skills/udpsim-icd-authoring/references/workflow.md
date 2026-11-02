@@ -46,6 +46,8 @@ The bridge's final XML gate uses the actual repository tool:
 ```
 
 For optional Config/scenario files, the integration gate is:
+For source-bound scenario draft generation, first follow [scenario-authoring.md](scenario-authoring.md);
+it exports actual Core leaves and requires complete intent before producing a draft.
 
 ```powershell
 & '<UdpSim>/tools/xml/ValidateXml.ps1' -ConfigPath '<output>/UdpSim.config.xml' -ScenarioPath '<output>/demo.scenario.xml' -StrictConfig

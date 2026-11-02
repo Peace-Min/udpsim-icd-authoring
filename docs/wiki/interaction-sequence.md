@@ -175,4 +175,6 @@ LLM은 파일 상태를 다시 읽어 이어갑니다. 이전 대화가 남아 �
 - [패킷 검사기](../../skills/udpsim-icd-authoring/scripts/Test-UdpPayload.ps1), [QA MCP 어댑터의 상태 게이트](../../tools/udpsim_agent_mcp.py)
 - [실행 모델과 부모 평가자의 범위를 구분한 자율 완주 QA](udpsim-codex-autonomous-qa.md), [분리본 검증 이력](../../PROVENANCE.md)
 
-이 다이어그램은 현재 메시지 정의 흐름을 설명합니다. 전용 시나리오 XML 생성 QA나 사내 Qwen 인수 완료를 나타내지 않습니다.
+이 다이어그램은 메시지 정의 흐름을 설명합니다. 0.2.0의 [시나리오 초안 흐름](scenario-authoring.md)은
+기존 ICD/Config를 읽어 실제 Core 문맥을 내보낸 뒤, 계획 작성·생성·strict 통합 검사로 이어집니다.
+이 다이어그램만으로 실제 장비 동작이나 사내 Qwen 인수 완료를 나타내지 않습니다.

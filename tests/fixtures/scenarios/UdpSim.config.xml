@@ -1,0 +1,6 @@
+<SimConfig name="Synthetic scenario generation QA" linkTimeoutMs="3000" icdBaseDirectory="icds">
+  <Link name="DEMO-A" local="127.0.0.1:63201" remote="127.0.0.1:63301" icd="device.icd.xml" enabled="true"/>
+  <Link name="DEMO-B" local="127.0.0.1:63201" remote="127.0.0.1:63302" icd="device.icd.xml" enabled="true"/>
+  <Link name="DEMO-C" local="127.0.0.1:63201" remote="127.0.0.1:63303" icd="device.icd.xml" enabled="false"/>
+  <Link name="DEMO-D" local="127.0.0.1:63201" remote="127.0.0.1:63304" icd="second.icd.xml" enabled="true"/>
+</SimConfig>

@@ -27,6 +27,8 @@ try {
     if ($UdpSimRoot) {
         & (Join-Path $PSScriptRoot 'validate-udpsim.ps1') -UdpSimRoot $env:UDPSIM_QA_ROOT -PythonPath $PythonPath
         if ($LASTEXITCODE -ne 0) { throw 'Actual Core/payload regression failed.' }
+        & $PythonPath -X utf8 (Join-Path $PSScriptRoot 'validate_scenarios.py') --udpsim-root $env:UDPSIM_QA_ROOT
+        if ($LASTEXITCODE -ne 0) { throw 'Actual scenario context/generation/Core regression failed.' }
     } else { Write-Output 'NOT_RUN: Core regression, supply -UdpSimRoot.' }
     Write-Output 'STANDALONE_CHECKS_PASS: inspect unittest skips and NOT_RUN lines for the exact scope.'
 } catch {

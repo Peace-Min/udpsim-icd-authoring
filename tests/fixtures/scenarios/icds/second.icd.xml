@@ -1,0 +1,5 @@
+<Icd name="Synthetic second ICD" endian="big">
+  <Header><Field name="Id" type="uint8" role="id"/><Field name="Length" type="uint8" role="length"/></Header>
+  <Send><Message code="PING" id="17" name="Ping" length="3"><Field name="Value" type="uint8"/></Message></Send>
+  <Receive><Message code="PONG" id="18" name="Pong" length="3"><Field name="Status" type="uint8"/></Message></Receive>
+</Icd>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Icd name="Synthetic scenario fixture" endian="little">
+  <Enums><Enum name="ReadyState"><Item name="Off" value="0"/><Item name="On" value="1"/></Enum></Enums>
+  <Types><Struct name="Channel">
+    <Field name="Reading" type="int16"/>
+    <Field name="Flags" type="uint8"><Bits name="Ready" from="0" to="0" enum="ReadyState"/><Bits name="Mode" from="1" to="2"/></Field>
+  </Struct></Types>
+  <Header>
+    <Field name="Id" type="uint16" role="id"/>
+    <Field name="Length" type="uint16" role="length"/>
+    <Field name="Sequence" type="uint16" role="seq" scope="message" response="echo"/>
+    <Field name="Source" type="uint8"/>
+  </Header>
+  <Send><Message code="SET_CHANNELS" id="0x7101" name="Set channels" length="13"><Field name="Channels" type="Channel" count="2"/></Message></Send>
+  <Receive><Message code="REPORT_CHANNELS" id="0x7201" name="Report channels" length="13"><Field name="Channels" type="Channel" count="2"/></Message></Receive>
+</Icd>

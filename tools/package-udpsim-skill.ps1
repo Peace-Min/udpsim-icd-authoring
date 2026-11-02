@@ -22,6 +22,7 @@ try {
         '.claude/skills/udpsim-icd-authoring',
         'docs/wiki/udpsim-icd-authoring.md',
         'docs/wiki/interaction-sequence.md',
+        'docs/wiki/scenario-authoring.md',
         'docs/wiki/udpsim-icd-qa.md',
         'docs/wiki/udpsim-cloud-qa.md',
         'docs/wiki/udpsim-free-models.md',
@@ -34,6 +35,7 @@ try {
         'docs/plans/udpsim-priority-qa-plan.md',
         'docs/plans/udpsim-cloud-qa-plan.md',
         'docs/plans/standalone-extraction.md',
+        'docs/plans/scenario-authoring.md',
         'tests/test_udpsim_ir.py',
         'tests/test_udpsim_model_eval.py',
         'tests/run_udpsim_model_eval.py',
@@ -51,10 +53,13 @@ try {
         'tests/validate-udpsim.ps1',
         'tests/validate.ps1',
         'tests/test_standalone_layout.py',
+        'tests/test_scenario_tool.py',
+        'tests/validate_scenarios.py',
         'tests/fixtures/udpsim-ir',
         'tests/fixtures/udpsim-model',
         'tests/fixtures/udpsim-opencode-qa',
         'tests/fixtures/udpsim-priority-qa',
+        'tests/fixtures/scenarios',
         'tools/udpsim_opencode_api.py',
         'tools/udpsim_agent_mcp.py',
         'tools/udpsim_agent_call.py',
@@ -96,7 +101,7 @@ This is a curated standalone working-tree snapshot; use per-file hashes for its 
 Open udpsim-icd-authoring in Claude Code, then use /udpsim-icd-authoring.
 Give the skill the sibling UdpSim directory as -UdpSimRoot.
 
-Read udpsim-icd-authoring/docs/wiki/udpsim-icd-authoring.md and udpsim-icd-qa.md.
+Read udpsim-icd-authoring/docs/wiki/udpsim-icd-authoring.md, udpsim-icd-qa.md and scenario-authoring.md.
 Prerequisites: Python 3.10+, Windows PowerShell 5.1+, Visual Studio MSBuild/Roslyn,
 .NET Framework 4.8. Provision installers separately before entering the air gap.
 This package contains no model weights, Python runtime, capture driver or credentials.
@@ -106,7 +111,7 @@ OpenCode/Bifrost binaries are not included. Cloud/native-MCP instructions descri
 do not run cloud setup/inference in the air gap. See udpsim-priority-qa.md for measured limits.
 
 From udpsim-icd-authoring run:
-& ./tests/validate-udpsim.ps1 -UdpSimRoot ../UdpSim
+& ./tests/validate.ps1 -UdpSimRoot ../UdpSim
 
 Do not run Core/packet validations concurrently against the same UdpSim directory.
 No cloud 27B or internal target-model acceptance is implied by this package.

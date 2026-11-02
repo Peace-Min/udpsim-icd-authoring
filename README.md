@@ -2,6 +2,7 @@
 
 ICD PDF 또는 C/C++/C# 패킷 구조체·직렬화 소스에서 **UdpSim 메시지 정의 XML**을 만드는 독립 Skill입니다.
 LLM이 원본을 해석하고, 도구가 중간 JSON 검사 → XML 변환 → 실제 UdpSim Core 검증을 수행합니다.
+**0.2.0부터 기존 ICD/Config와 시험 의도로 Periodic·Manual·Response 시나리오 XML 초안도 생성·검증합니다.**
 관측 UDP payload가 있으면 바이트·필드 값도 대조할 수 있습니다.
 
 ## 호출 방법
@@ -56,15 +57,34 @@ Codex/다른 에이전트에는 이 파일을 지정하거나, 해당 Skill 폴�
 ## 범위와 문서
 
 - [LLM · Agent · Tool 상호작용 시퀀스 다이어그램](docs/wiki/interaction-sequence.md)
+- [시나리오 초안 생성과 실제 검증](docs/wiki/scenario-authoring.md)
 - [사용 절차와 예제](docs/wiki/udpsim-icd-authoring.md)
 - [QA 범위와 인수 상태](docs/wiki/udpsim-icd-qa.md)
 - [입력 12종·도구/체크포인트 QA](docs/wiki/udpsim-priority-qa.md)
 - [Codex 자율 완주 결과](docs/wiki/udpsim-codex-autonomous-qa.md)
 - [분리 이력과 이 저장소의 검증](PROVENANCE.md)
 
-주요 범위는 메시지 정의이며 시나리오 XML의 전용 자동 생성·검증 QA까지 완료한 Skill은 아닙니다.
+메시지 정의와 현재 앱의 세 가지 시나리오 종류를 지원합니다. 순차 대기·타임아웃·재시도 상태 머신은 생성하지 않습니다.
 UDP payload 검사기는 캡처를 시작하지 않으며 PCAP/PCAPNG는 payload를 별도로 내보내야 합니다.
 사내 Qwen·Claude Code 조합 인수는 아직 별도 검증 대상입니다.
+
+## 시나리오 초안 생성
+
+같은 `/udpsim-icd-authoring`에 기존 Config 경로, 사용할 메시지와 장비, 주기/응답 조건, 시험 값을 지정합니다.
+도구가 실제 Core에서 배열/Bits까지 전개된 필수 필드를 가져오므로 경로 목록을 직접 적을 필요가 없습니다.
+지정하지 않은 필수 값은 null로 남기고 생성을 막습니다. 생성된 XML은 실제 통합 검증을 통과해야 완료입니다.
+
+```powershell
+$skill = './skills/udpsim-icd-authoring'
+& "$skill/scripts/Export-ScenarioContext.ps1" -UdpSimRoot C:/work/UdpSim -ConfigPath C:/private/UdpSim.config.xml -OutputPath out/context.json
+python "$skill/scripts/scenario_tool.py" template --context out/context.json --kind Periodic --icd device.icd.xml --message SET_CHANNELS --output out/plan.json
+# plan.json의 대상·주기·필수 값을 시험 의도로 채운 뒤 실행
+python "$skill/scripts/scenario_tool.py" generate --context out/context.json --plan out/plan.json --output out/trial.scenario.xml
+& "$skill/scripts/Test-ScenarioXml.ps1" -UdpSimRoot C:/work/UdpSim -ConfigPath C:/private/UdpSim.config.xml -ScenarioPath out/trial.scenario.xml
+```
+
+`SCENARIO_DRAFT_CREATED`는 초안 생성, `SCENARIO_PASS`는 실제 Config/ICD/시나리오 검사 통과입니다.
+이 도구는 Config 주소를 생성하거나 모의기를 시작하지 않습니다. 자세한 계약은 [시나리오 reference](skills/udpsim-icd-authoring/references/scenario-authoring.md)를 따릅니다.
 
 ## 로컬 검증
 

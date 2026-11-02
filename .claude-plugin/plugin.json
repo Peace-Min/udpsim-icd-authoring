@@ -1,7 +1,7 @@
 {
   "name": "udpsim-icd-authoring",
-  "version": "0.1.0",
-  "description": "Author UdpSim ICD XML from ICD PDFs or packet structure/serialization sources, with deterministic validation and raw UDP payload checks.",
+  "version": "0.2.0",
+  "description": "Author UdpSim ICD XML and source-bound Periodic/Manual/Response scenario drafts with actual Core validation and optional raw UDP payload checks.",
   "author": { "name": "Peace-Min", "url": "https://github.com/Peace-Min" },
   "repository": "https://github.com/Peace-Min/udpsim-icd-authoring",
   "license": "MIT",
